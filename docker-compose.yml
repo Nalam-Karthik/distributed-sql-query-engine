@@ -1,0 +1,64 @@
+version: '3.8'
+
+services:
+  postgres_5432:
+    image: postgres:15-alpine
+    container_name: shardsql_postgres_5432
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: shardsql_shard_5432
+    ports:
+      - "5432:5432"
+    volumes:
+      - ./data/postgres/shard_5432:/var/lib/postgresql/data
+      - ./scripts/init_shard_5432.sql:/docker-entrypoint-initdb.d/init.sql:ro
+    logging:
+      driver: json-file
+      options:
+        max-size: "10m"
+        max-file: "3"
+
+  postgres_5433:
+    image: postgres:15-alpine
+    container_name: shardsql_postgres_5433
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: shardsql_shard_5433
+    ports:
+      - "5433:5433"
+    volumes:
+      - ./data/postgres/shard_5433:/var/lib/postgresql/data
+      - ./scripts/init_shard_5433.sql:/docker-entrypoint-initdb.d/init.sql:ro
+    logging:
+      driver: json-file
+      options:
+        max-size: "10m"
+        max-file: "3"
+
+  postgres_5434:
+    image: postgres:15-alpine
+    container_name: shardsql_postgres_5434
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: shardsql_shard_5434
+    ports:
+      - "5434:5434"
+    volumes:
+      - ./data/postgres/shard_5434:/var/lib/postgresql/data
+      - ./scripts/init_shard_5434.sql:/docker-entrypoint-initdb.d/init.sql:ro
+    logging:
+      driver: json-file
+      options:
+        max-size: "10m"
+        max-file: "3"
+
+networks:
+  default:
+    name: shardsql_network
+    driver: bridge
