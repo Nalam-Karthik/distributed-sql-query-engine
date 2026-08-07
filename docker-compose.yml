@@ -10,10 +10,10 @@ services:
       POSTGRES_PASSWORD: postgres
       POSTGRES_DB: shardsql_shard_5432
     ports:
-      - "5432:5432"
+      - "5432:5432" # Host 5432 -> Container 5432
     volumes:
       - ./data/postgres/shard_5432:/var/lib/postgresql/data
-      - ./scripts/init_shard_5432.sql:/docker-entrypoint-initdb.d/init.sql:ro
+      # - ./scripts/init_shard_5432.sql:/docker-entrypoint-initdb.d/init.sql:ro
     logging:
       driver: json-file
       options:
@@ -29,10 +29,10 @@ services:
       POSTGRES_PASSWORD: postgres
       POSTGRES_DB: shardsql_shard_5433
     ports:
-      - "5433:5433"
+      - "5433:5432" # CORRECTED: Host 5433 -> Container 5432
     volumes:
       - ./data/postgres/shard_5433:/var/lib/postgresql/data
-      - ./scripts/init_all_shards.sql:/docker-entrypoint-initdb.d/init.sql:ro
+      # - ./scripts/init_all_shards.sql:/docker-entrypoint-initdb.d/init.sql:ro
     logging:
       driver: json-file
       options:
@@ -48,10 +48,10 @@ services:
       POSTGRES_PASSWORD: postgres
       POSTGRES_DB: shardsql_shard_5434
     ports:
-      - "5434:5434"
+      - "5434:5432" # CORRECTED: Host 5434 -> Container 5432
     volumes:
       - ./data/postgres/shard_5434:/var/lib/postgresql/data
-      - ./scripts/init_all_shards.sql:/docker-entrypoint-initdb.d/init.sql:ro
+      # - ./scripts/init_all_shards.sql:/docker-entrypoint-initdb.d/init.sql:ro
     logging:
       driver: json-file
       options:
