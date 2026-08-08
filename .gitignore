@@ -1,1 +1,13 @@
-.env 
+# Python
+__pycache__/
+*.pyc
+
+# Database Storage Volumes
+data/
+
+# Environment Variables & Secrets
+.env
+
+# Virtual Environment
+venv/
+.venv/
